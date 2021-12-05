@@ -6,6 +6,8 @@ import {
   Param,
   Post,
   Put,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto'
 import { UpdateTodoDto } from './dto/update-todo.dto'
@@ -38,5 +40,10 @@ export class TodoController {
   @Delete()
   async delete(@Param('id') id: string) {
     return await this.service.delete(id)
+  }
+
+  @Get('throw')
+  async getException() {
+    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN)
   }
 }
