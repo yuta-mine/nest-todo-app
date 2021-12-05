@@ -1,4 +1,11 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+
 export class BaseTodoDto {
+  @IsNotEmpty()
+  @IsString()
   title: string
-  description?: string
+
+  @IsNotEmpty()
+  @IsString()
+  description: string
 }
