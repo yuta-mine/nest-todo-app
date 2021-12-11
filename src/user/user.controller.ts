@@ -7,6 +7,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { UserService } from './user.service'
+import { BaseUserDto } from './dto/base-user.dto';
 import { CreateUserDto } from './dto/create-user.dto.';
 import { HttpExceptionFilter } from '../filter/exception.filter'
 
@@ -28,5 +29,11 @@ export class UserController {
   @UseFilters(new HttpExceptionFilter())
   async create(@Body() CreateUserDto: CreateUserDto) {
     return await this.service.create(CreateUserDto)
+  }
+
+  @Post('/signin')
+  @UseFilters(new HttpExceptionFilter())
+  async signin(@Body() BaseUserDto: BaseUserDto) {
+    return await this.service.signin(BaseUserDto)
   }
 }
