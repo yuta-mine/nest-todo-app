@@ -8,12 +8,14 @@ import {
   Put,
   UseFilters,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto'
 import { UpdateTodoDto } from './dto/update-todo.dto'
 import { TodoService } from './todo.service';
 import { HttpExceptionFilter } from '../filter/exception.filter'
 import { AuthGuard } from '../guards/auth.guard'
+import { LogsInterceptor } from '../interceptor/logs.interceptor'
 
 @Controller('todos')
 export class TodoController {
@@ -33,6 +35,7 @@ export class TodoController {
 
   @Post()
   @UseFilters(new HttpExceptionFilter())
+  @UseInterceptors(LogsInterceptor)
   async create(@Body() CreateTodoDto: CreateTodoDto) {
     return await this.service.create(CreateTodoDto)
   }
@@ -43,6 +46,8 @@ export class TodoController {
   }
 
   @Delete()
+  @UseFilters(new HttpExceptionFilter())
+  @UseInterceptors(LogsInterceptor)
   async delete(@Param('id') id: string) {
     return await this.service.delete(id)
   }
