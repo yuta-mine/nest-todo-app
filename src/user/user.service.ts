@@ -40,11 +40,18 @@ export class UserService {
   }
 
   async signin(BaseUserDto: BaseUserDto): Promise<boolean> {
-    const registerdUser = await this.model.find({ email: BaseUserDto.email }).exec()
-    if (registerdUser.length) {
-      return true
-    } else {
+    const [registerdUser] = await this.model.find({ email: BaseUserDto.email })
+    if (!registerdUser) {
       throw new BadRequestException('No such email address')
     }
+
+    const [salt, storedHash] = registerdUser.password.split('.')
+    const hash = (await scrypt(registerdUser.password, salt, 32)) as Buffer
+
+    if (storedHash !== hash.toString('hex')) {
+      throw new BadRequestException('INcorrect password')
+    }
+
+    return true
   }
 }
