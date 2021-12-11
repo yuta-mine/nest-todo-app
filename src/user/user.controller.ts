@@ -4,9 +4,11 @@ import {
   Get,
   Param,
   Post,
+  UseFilters,
 } from '@nestjs/common';
 import { UserService } from './user.service'
 import { CreateUserDto } from './dto/create-user.dto.';
+import { HttpExceptionFilter } from '../filter/exception.filter'
 
 @Controller('user')
 export class UserController {
@@ -22,7 +24,8 @@ export class UserController {
     return await this.service.findOne(id)
   }
 
-  @Post()
+  @Post('/signup')
+  @UseFilters(new HttpExceptionFilter())
   async create(@Body() CreateUserDto: CreateUserDto) {
     return await this.service.create(CreateUserDto)
   }

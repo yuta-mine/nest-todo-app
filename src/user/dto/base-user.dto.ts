@@ -7,7 +7,7 @@ export class BaseUserDto {
 
   @IsNotEmpty()
   @IsString()
-  // @IsEmail()
+  @IsEmail()
   email: string;
 
   @IsNotEmpty()
