@@ -1,0 +1,360 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/todos": {
+      "get": {
+        "operationId": "TodoController_index",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BaseTodoDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos/{id}": {
+      "get": {
+        "operationId": "TodoController_find",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseTodoDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos/create": {
+      "post": {
+        "operationId": "TodoController_create",
+        "summary": "create todo document",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTodoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTodoDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/todos/update": {
+      "put": {
+        "operationId": "TodoController_update",
+        "summary": "update todo document",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTodoDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/todos/delete": {
+      "delete": {
+        "operationId": "TodoController_delete",
+        "summary": "delete todo document",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "operationId": "UserController_index",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BaseUserDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "operationId": "UserController_find",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/signup": {
+      "post": {
+        "operationId": "UserController_create",
+        "summary": "user signup",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/signin": {
+      "post": {
+        "operationId": "UserController_signin",
+        "summary": "user signin",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Todo app",
+    "description": "",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "BaseTodoDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "タイトル",
+            "example": "ハリーポッター"
+          },
+          "description": {
+            "type": "string",
+            "description": "説明",
+            "example": "魔法使いの本"
+          }
+        },
+        "required": [
+          "title",
+          "description"
+        ]
+      },
+      "CreateTodoDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "タイトル",
+            "example": "ハリーポッター"
+          },
+          "description": {
+            "type": "string",
+            "description": "説明",
+            "example": "魔法使いの本"
+          }
+        },
+        "required": [
+          "title",
+          "description"
+        ]
+      },
+      "UpdateTodoDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "タイトル",
+            "example": "ハリーポッター"
+          },
+          "description": {
+            "type": "string",
+            "description": "説明",
+            "example": "魔法使いの本"
+          },
+          "completedAt": {
+            "type": "string",
+            "description": "update",
+            "example": "updated"
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "completedAt"
+        ]
+      },
+      "BaseUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "名前",
+            "example": "田中"
+          },
+          "email": {
+            "type": "string",
+            "description": "メールアドレス",
+            "example": "test@mai.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "パスワード",
+            "example": "password"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "名前",
+            "example": "田中"
+          },
+          "email": {
+            "type": "string",
+            "description": "メールアドレス",
+            "example": "test@mai.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "パスワード",
+            "example": "password"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      }
+    }
+  }
+}

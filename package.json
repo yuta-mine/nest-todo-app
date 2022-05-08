@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "openapi": "ts-node src/generate-api.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -31,6 +32,8 @@
     "class-validator": "^0.13.2",
     "crypto": "^1.0.1",
     "express": "^4.17.1",
+    "fs-extra": "^10.1.0",
+    "js-yaml": "^4.1.0",
     "mongoose": "^6.0.14",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
