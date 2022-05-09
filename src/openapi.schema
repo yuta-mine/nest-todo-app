@@ -162,24 +162,6 @@
         }
       }
     },
-    "/user/{id}": {
-      "get": {
-        "operationId": "UserController_find",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BaseUserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/user/signup": {
       "post": {
         "operationId": "UserController_create",
