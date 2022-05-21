@@ -2,7 +2,7 @@ import {
   Body,
   Controller,
   Get,
-  // Param,
+  Param,
   Post,
   UseFilters,
   HttpStatus,
@@ -23,11 +23,11 @@ export class UserController {
     return this.service.findAll();
   }
 
-  // @Get('/:id')
-  // @ApiResponse({ status: HttpStatus.OK, type: BaseUserDto })
-  // async find(@Param() id: string) {
-  //   return await this.service.findOne(id)
-  // }
+  @Get('/:id')
+  @ApiResponse({ status: HttpStatus.OK, type: BaseUserDto })
+  async find(@Param('id') id: string) {
+    return await this.service.findOne(id);
+  }
 
   @Post('/signup')
   @UseFilters(new HttpExceptionFilter())
