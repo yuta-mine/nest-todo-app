@@ -3,11 +3,24 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import React, { useState } from 'react';
+// import { CreateUserDto, DefaultApi, Configuration } from '../api';
 
 const Home: NextPage = () => {
-  const [todoText, setTodoText] = useState('');
-  const onChangeTodoText = (event: React.ChangeEvent<HTMLInputElement>): void =>
-    setTodoText(event.target.value);
+  const [nameText, setNameText] = useState('');
+  const [emailText, setEmailText] = useState('');
+  const [passwordText, setPasswordText] = useState('');
+  const onChangeNameText = (event: React.ChangeEvent<HTMLInputElement>): void =>
+    setNameText(event.target.value);
+  const onChangeEmailText = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => setEmailText(event.target.value);
+  const onChangePasswordText = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => setPasswordText(event.target.value);
+
+  // function createUser(user: CreateUserDto) {
+  //   new DefaultApi().userControllerCreate(user);
+  // }
 
   return (
     <div className={styles.container}>
@@ -20,10 +33,22 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <div>
           <input
-            placeholder={'todoを入力してください'}
+            placeholder={'nameを入力してください'}
             type={'text'}
-            value={todoText}
-            onChange={onChangeTodoText}
+            value={nameText}
+            onChange={onChangeNameText}
+          />
+          <input
+            placeholder={'emailを入力してください'}
+            type={'text'}
+            value={emailText}
+            onChange={onChangeEmailText}
+          />
+          <input
+            placeholder={'passwordを入力してください'}
+            type={'text'}
+            value={passwordText}
+            onChange={onChangePasswordText}
           />
         </div>
       </main>
