@@ -1,14 +1,16 @@
 import type { NextPage } from "next"
+import React, { useState, useCallback } from "react"
 import Head from "next/head"
 import Image from "next/image"
 import styles from "../../styles/Home.module.css"
-import React, { useState } from "react"
 import { axiosApi } from "../client"
+import { BaseUserDto } from "../api"
 
 const Home: NextPage = () => {
   const [nameText, setNameText] = useState("")
   const [emailText, setEmailText] = useState("")
   const [passwordText, setPasswordText] = useState("")
+  const [user, setUser] = useState<BaseUserDto[]>()
   const onChangeNameText = (event: React.ChangeEvent<HTMLInputElement>): void =>
     setNameText(event.target.value)
   const onChangeEmailText = (
@@ -18,12 +20,15 @@ const Home: NextPage = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => setPasswordText(event.target.value)
 
-  function findAllUser() {
-    const allUser = axiosApi.userControllerIndex().then((res) => {
-      return res.data
-    })
-    console.log(allUser)
-  }
+  const findAllUser = useCallback(() => {
+    const allUser = async () => {
+      const allUser = await axiosApi.userControllerIndex().then((res) => {
+        return res.data
+      })
+      await setUser(allUser)
+    }
+    allUser()
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -34,12 +39,20 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <div></div>
         <div>
           <button alia-label="findAllUser" type="button" onClick={findAllUser}>
             findAllUser
           </button>
-
+          {user ? (
+            <ul>
+              {user.map((u, i) => (
+                <li key={i}>
+                  {u.name}
+                  {u.email}
+                </li>
+              ))}
+            </ul>
+          ) : null}
           <input
             placeholder={"nameを入力してください"}
             type={"text"}
