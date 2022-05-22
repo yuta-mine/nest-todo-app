@@ -1,26 +1,41 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../../styles/Home.module.css';
-import React, { useState } from 'react';
-// import { CreateUserDto, DefaultApi, Configuration } from '../api';
+import type { NextPage } from "next"
+import Head from "next/head"
+import Image from "next/image"
+import styles from "../../styles/Home.module.css"
+import React, { useState } from "react"
+import { DefaultApiFactory } from "../api"
+import axios from "axios"
+
+const baseURL = "http://localhost:3000"
+const axiosInstance = axios.create({
+  timeout: 10000,
+  headers: {
+    "X-Requested-With": "XMLHttpRequest",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+  },
+})
+const axiosApi = DefaultApiFactory(undefined, baseURL, axiosInstance)
 
 const Home: NextPage = () => {
-  const [nameText, setNameText] = useState('');
-  const [emailText, setEmailText] = useState('');
-  const [passwordText, setPasswordText] = useState('');
+  const [nameText, setNameText] = useState("")
+  const [emailText, setEmailText] = useState("")
+  const [passwordText, setPasswordText] = useState("")
   const onChangeNameText = (event: React.ChangeEvent<HTMLInputElement>): void =>
-    setNameText(event.target.value);
+    setNameText(event.target.value)
   const onChangeEmailText = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => setEmailText(event.target.value);
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => setEmailText(event.target.value)
   const onChangePasswordText = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ): void => setPasswordText(event.target.value);
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => setPasswordText(event.target.value)
 
-  // function createUser(user: CreateUserDto) {
-  //   new DefaultApi().userControllerCreate(user);
-  // }
+  function findAllUser() {
+    const allUser = axiosApi.userControllerIndex().then((res) => {
+      return res.data
+    })
+    console.log(allUser)
+  }
 
   return (
     <div className={styles.container}>
@@ -31,22 +46,27 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        <div></div>
         <div>
+          <button alia-label="findAllUser" type="button" onClick={findAllUser}>
+            findAllUser
+          </button>
+
           <input
-            placeholder={'nameを入力してください'}
-            type={'text'}
+            placeholder={"nameを入力してください"}
+            type={"text"}
             value={nameText}
             onChange={onChangeNameText}
           />
           <input
-            placeholder={'emailを入力してください'}
-            type={'text'}
+            placeholder={"emailを入力してください"}
+            type={"text"}
             value={emailText}
             onChange={onChangeEmailText}
           />
           <input
-            placeholder={'passwordを入力してください'}
-            type={'text'}
+            placeholder={"passwordを入力してください"}
+            type={"text"}
             value={passwordText}
             onChange={onChangePasswordText}
           />
@@ -59,14 +79,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
