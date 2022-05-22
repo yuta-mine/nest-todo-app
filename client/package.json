@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint",
-    "generate-client": "openapi-generator-cli generate  -g typescript-axios -i ../src/openapi.schema -o ./src/api"
+    "generate-client": "openapi-generator-cli generate  -g typescript-axios -i ../backend/src/openapi.schema -o ./src/api"
   },
   "dependencies": {
     "next": "12.1.6",
