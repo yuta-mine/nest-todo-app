@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  api:
+    container_name: nest-todo-api
+    image: nestjs-api-dev:1.0.0
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:5.0
+    container_name: nest-todo-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - .mongodata:/data/db
+      # - ./configdb:/data/configdb
+# volumes:
+#   mongodata: 
