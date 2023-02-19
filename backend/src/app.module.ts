@@ -8,7 +8,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware'
   
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nest-todo-app'),
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/nest-todo-app'),
     TodoModule,
     UserModule
   ],
